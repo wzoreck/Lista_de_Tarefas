@@ -14,12 +14,23 @@ import './Main.css';
 export default class Main extends Component {
     state = { // Forma mais simples de se fazer, com Class fields
         novaTarefa: '', // Inicializando o estado
-        tarefas: [
-            'Fazer café',
-            'Beber água',
-            'Programar',
-        ],
+        tarefas: [],
     };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const { tarefas } = this.state;
+        let { novaTarefa } = this.state;
+        novaTarefa = novaTarefa.trim(); // Remove espaços em branco desnecessários
+
+        if(tarefas.indexOf(novaTarefa) !== -1) return;
+
+        const novasTarefas = [...tarefas]; // Nào se pode mexer no estado diretamente, é necessário copiar ele
+
+        this.setState({
+            tarefas: [...novasTarefas, novaTarefa],
+        })
+    }
 
     handleChange = (event) => { // Arrow function, usado pra resolver o problema do this
         this.setState({
@@ -35,7 +46,7 @@ export default class Main extends Component {
             <div className="main">
                 <h1>Lista de Tarefas</h1>
 
-                <form action="#" className="form">
+                <form onSubmit={this.handleSubmit} action="#" className="form">
                     <input
                         onChange={this.handleChange}
                         type="text"
@@ -50,10 +61,10 @@ export default class Main extends Component {
                     {tarefas.map((tarefa) => (
                         <li key={tarefa}>
                             {tarefa}
-                            <div>
+                            <span>
                                 <FaEdit className="edit" />
                                 <FaWindowClose className="delete" />
-                            </div>
+                            </span>
                         </li>
                     ))}
                 </ul>
