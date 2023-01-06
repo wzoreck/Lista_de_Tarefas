@@ -1,25 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'; // Sempre que for criar um componente precisa importar
+import './App.css'; // Importado o arquivos CSS para estilização do componente
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// O componente App está sendo exportado, pois é importado em index.js
+export default function App() {
+  return <h1>Olá Mundo</h1>;
 }
-
-export default App;
