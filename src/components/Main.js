@@ -4,18 +4,11 @@ import React, { Component } from "react";
 
 // Criada a classe Main que extende Component e está sendo exportada
 export default class Main extends Component {
-    constructor(props) { // Construtor da classe/componente
-        super(props); // Passando as propriedades do componente para a generealização Component
+    state = { // Forma mais simples de se fazer, com Class fields
+        novaTarefa: '', // Inicializando o estado
+    };
 
-        // Esse é o estado do componente, sempre que ele for alterado irá refletir no JSX do render()
-        this.state = {
-            novaTarefa: 'teste', // Inicializando o estado
-        };
-
-        this.novoInput = this.novoInput.bind(this); // Passando o this para o método ter acesso
-    }
-
-    novoInput(event) {
+    novoInput = (event) => { // Arrow function, usado pra resolver o problema do this
         this.setState({
             novaTarefa: event.target.value,
         });
