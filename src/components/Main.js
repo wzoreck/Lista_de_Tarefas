@@ -18,6 +18,27 @@ export default class Main extends Component {
         index: -1, // igual a -1 - criando tarefas, diferente de -1 - editando uma tarefa
     };
 
+    // Função do React que é executada sempre que o componente é montado na tela
+    componentDidMount() {
+        const tarefas = JSON.parse(localStorage.getItem('tarefas'));
+
+        if(!tarefas) return;
+
+        this.setState({ tarefas: tarefas }); // Passando para o componente as tarefas que foram salvas, assim sempre que atualizar a página as tarefas continuarão a aparecer
+    }
+
+    // Função que é executada pelo React quando um componente é atualizado, prevProps e prevState trazem as propriedades e estados anteriores do componente
+    componentDidUpdate(prevProps, prevState) {
+        //console.log(prevState.novaTarefa);
+        const { tarefas } = this.state;
+
+        if (tarefas === prevState.tarefas) return;
+
+        //  Se a lista de tarefas mudar, salva no local storage
+        localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Inspect -> Application -> Local Storage para ver os dados armazenados
+        
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const { tarefas, index } = this.state;
