@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
-//Tarefas
-import { FaEdit, FaWindowClose } from 'react-icons/fa';
-
 import Form from './Form'; // ao importar a pasta form o arquivo index.js é automaticamente importado
+import Tarefas from './Tarefas';
 
 import './Main.css';
 
@@ -106,27 +104,11 @@ export default class Main extends Component {
                     novaTarefa={novaTarefa}
                 />
 
-                <ul className="tarefas">
-                    {tarefas.map((tarefa, index) => (
-                        <li key={tarefa}>
-                            {tarefa}
-                            <span>
-                                <FaEdit
-                                    onClick={
-                                        /* Função que recebe o evento e retorna o handleEdit com o evento e o indice  */
-                                        (e) => this.handleEdit(e, index)
-                                    }
-                                    className="edit"
-                                />
-                                <FaWindowClose
-                                    onClick={(e) => this.handleDelete(e, index)}
-                                    className="delete"
-                                />
-                            </span>
-                        </li>
-                    ))}
-                </ul>
-
+                <Tarefas
+                    handleEdit={this.handleEdit}
+                    handleDelete={this.handleDelete}
+                    tarefas={tarefas}
+                />
             </div>
         );
     }
