@@ -15,11 +15,12 @@ export default class Main extends Component {
     state = { // Forma mais simples de se fazer, com Class fields
         novaTarefa: '', // Inicializando o estado
         tarefas: [],
+        index: -1, // igual a -1 - criando tarefas, diferente de -1 - editando uma tarefa
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { tarefas } = this.state;
+        const { tarefas, index } = this.state;
         let { novaTarefa } = this.state;
         novaTarefa = novaTarefa.trim(); // Remove espaços em branco desnecessários
 
@@ -27,9 +28,20 @@ export default class Main extends Component {
 
         const novasTarefas = [...tarefas]; // Nào se pode mexer no estado diretamente, é necessário copiar ele
 
-        this.setState({
-            tarefas: [...novasTarefas, novaTarefa],
-        })
+        if (index === -1) {
+            this.setState({
+                tarefas: [...novasTarefas, novaTarefa],
+                novaTarefa: '',
+            })
+        } else {
+            novasTarefas[index] = novaTarefa;
+            
+            this.setState({
+                tarefas: [...novasTarefas],
+                index: -1,
+                novaTarefa: '',
+            });
+        }
     }
 
     handleChange = (event) => { // Arrow function, usado pra resolver o problema do this
@@ -40,6 +52,13 @@ export default class Main extends Component {
 
     handleEdit = (event, index) => {
         console.log('Edit', index);
+
+        const { tarefas } = this.state;
+
+        this.setState({
+            index: index,
+            novaTarefa: tarefas[index],
+        });
     }
 
     handleDelete = (event, index) => {
